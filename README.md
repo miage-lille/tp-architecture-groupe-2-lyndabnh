@@ -89,3 +89,66 @@ _À vous d'implémenter tout ça à l'image de ce qui a déjà été réalisé !
 ## Astuces
 
 La commande `npm run test:watch` pour lancer vos tests en watch mode.
+
+## Rapport Détaillé des Modifications : Use-case "Réserver une place dans un webinaire"
+
+---
+
+### 1. Ajout de la méthode `findById` dans l'interface `IWebinarRepository`
+
+- Une méthode a été ajoutée pour permettre la recherche d'un webinaire par son identifiant unique (ID).
+- Cela permet de valider si un webinaire existe avant de tenter une réservation.
+
+
+---
+
+### 2. Implémentation de la méthode `findById` dans `InMemoryWebinarRepository`
+
+- La méthode a été implémentée pour permettre une recherche d'un webinaire dans le dépôt en mémoire (InMemory).
+- Cette fonctionnalité est essentielle pour vérifier les détails d'un webinaire pendant l'exécution du use-case.
+
+
+---
+
+### 3. Implémentation du Use-case "BookSeat"
+
+#### Description générale :
+Ce use-case permet à un utilisateur de réserver une place dans un webinaire tout en respectant des règles métier strictes. 
+
+#### Règles métier :
+1. **Vérifier les places disponibles :**
+   - S'assurer qu'il reste des places dans le webinaire avant d'autoriser la réservation.
+
+2. **Vérifier l'inscription existante :**
+   - Vérifier qu'un utilisateur ne s'inscrit pas plusieurs fois au même webinaire.
+
+#### Side-effect :
+- Lorsqu'un utilisateur s'inscrit avec succès, un email est envoyé à l'organisateur pour notifier la nouvelle inscription.
+
+
+---
+
+### 4. Tests unitaires du Use-case "BookSeat"
+
+#### Objectifs des tests :
+- Valider le bon fonctionnement du use-case dans différents scénarios.
+- Garantir que les règles métier sont respectées.
+
+#### Scénarios testés :
+1. **Réservation réussie :**
+   - Un utilisateur peut réserver une place si le webinaire a des places disponibles.
+
+2. **Webinaire complet :**
+   - Une erreur est levée si le nombre maximum de participants est atteint.
+
+3. **Utilisateur déjà inscrit :**
+   - Une erreur est levée si l'utilisateur tente de s'inscrire deux fois au même webinaire.
+
+4. **Webinaire introuvable :**
+   - Une erreur est levée si le webinaire spécifié n'existe pas.
+
+---
+
+
+
+
